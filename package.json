@@ -1,0 +1,48 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "demo code",
+  "scripts": {
+    "test": "babel-node conf/project.conf.js",
+    "start": "babel-node conf/project.conf.js --dev",
+    "eslint": "babel-node conf/eslint/eslint.conf.js",
+    "mocha": "mocha"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ],
+    "plugins": [
+      ["module-resolver", {
+        "root": ["./src", "./test"]
+      }]
+    ]
+  },
+  "author": "jacky.chen",
+  "license": "MIT",
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "mocha": "^5.2.0"
+  },
+  "dependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-eslint": "^8.2.1",
+    "babel-preset-env": "^1.6.0",
+    "babel-register": "^6.26.0",
+    "chai": "^4.1.2",
+    "chalk": "^2.3.0",
+    "eslint": "^4.16.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-node": "^5.2.1",
+    "glob": "^7.1.2",
+    "inquirer": "^5.0.0",
+    "inquirer-autocomplete-prompt": "^0.12.1",
+    "merge": "^1.2.0",
+    "mocha-multi": "^1.0.1",
+    "moment": "^2.17.1",
+    "nodemon": "^1.14.11",
+    "underscore": "^1.8.3",
+    "yargs": "^11.0.0"
+  }
+}
