@@ -1,8 +1,15 @@
+/*
+Command pattern, ref : https://en.wikipedia.org/wiki/Command_pattern
+Macro command is an array container, which has 4 operated method, like "register", "remove", "retrieve", "has".
+When macro execute, it will follow register order to execute command.
+
+author: jacky.chen
+*/
 import Command from "./simple";
 
 export default class MacroCommand extends Command {
     // Constructor
-    constructor($name = "") {
+    constructor($name) {
         // Call parent constructor
         super($name);
         // private variable, not safe way.
@@ -92,7 +99,7 @@ export default class MacroCommand extends Command {
         for (let count = 0; count < this.commands.length; count += 1) {
             command = this.commands[count];
             if (command !== null && command instanceof Command) {
-                args = command.execute(args);
+                command.execute(args);
             }
         }
         return args;

@@ -20,7 +20,7 @@ class RenameCommand extends SimpleCommand {
 
 // Test case
 describe('Framework.Patterns.Command, SimpleCommand', () => {
-    it('Simple command interface', () => {
+    it('Class method & Interface', () => {
         assertFunction(SimpleCommand.prototype.execute);
     });
     it('Inherent & Constructor.', () => {

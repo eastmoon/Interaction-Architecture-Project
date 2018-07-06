@@ -7,14 +7,6 @@ fix :
 CustomEvent (IE problem)
 */
 
-/*
-class type name retrieve and check
-- Class name : Class.name
-- Object class name : obj.constructor.name
-- Object type check : [objact] instanceof [class]
-Ref : http://stackoverflow.com/questions/1249531
-*/
-
 // Declared class private variable.
 let instances = {};
 let rootWin = null;

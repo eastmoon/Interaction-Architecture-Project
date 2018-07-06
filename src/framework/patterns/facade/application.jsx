@@ -5,9 +5,9 @@
     author: jacky.chen
 */
 import Singleton from "utils/patterns/singleton";
-import Views from "./views";
-import Controllers from "./controllers";
-import Models from "./models";
+import View from "./view";
+import Controller from "./controller";
+import Model from "./model";
 
 // Singleton class
 export default class Application extends Singleton {
@@ -24,9 +24,9 @@ export default class Application extends Singleton {
         // 1. never use new class to retrieve instance
         // 2. re-new class, and when first time call canstructor, will use install function.
         // declared member variable
-        this.views = new Views();
-        this.controllers = new Controllers();
-        this.models = new Models();
+        this.views = new View();
+        this.controllers = new Controller();
+        this.models = new Model();
     }
 
     // Static attribute, retrieve Views object.

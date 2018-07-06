@@ -21,7 +21,7 @@ class ChildrenSingletonRename extends Singleton {
 
 // Test case
 describe('Framework.Patterns.Singleton, CrossIframeSingleton', () => {
-    it('Singleton interface', () => {
+    it('Class method & Interface', () => {
         Assert.ok(typeof Singleton.appName !== "undefined" && typeof Singleton.appName === "string");
         Assert.ok(typeof Singleton.instance !== "undefined" && typeof Singleton.instance === "object");
     });
