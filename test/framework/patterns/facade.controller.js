@@ -3,8 +3,8 @@
 //import {assertFunction} from "utils/assert";
 
 // Test case
-describe('Framework.Patterns.Command, SimpleCommand', () => {
-    it('Simple command interface', () => {
+describe('Framework.Patterns.Facade, Controller', () => {
+    it('Class method & Interface', () => {
     });
     it('Inherent & Constructor.', () => {
     });

@@ -5,7 +5,7 @@ When macro execute, it will follow register order to execute command.
 
 author: jacky.chen
 */
-import Command from "./simple";
+import Command from "framework/patterns/command/simple";
 
 export default class MacroCommand extends Command {
     // Constructor

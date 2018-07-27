@@ -5,12 +5,12 @@ When command constructor execute, but didn't pass new-name, this command name wi
 
 author: jacky.chen
 */
+import BaseObject from "framework/patterns/base/object";
 
-export default class SimpleCommand {
+export default class SimpleCommand extends BaseObject {
     // Constructor
     constructor($name) {
-        // private variable, not safe way.
-        this.name = $name ? $name : this.constructor.name;
+        super($name);
     }
 
     // execute

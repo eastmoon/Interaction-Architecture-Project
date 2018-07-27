@@ -3,7 +3,7 @@ import Assert from "assert";
 import {assertFunction} from "utils/assert";
 
 // Singleton Library
-import Container from "framework/patterns/facade/container";
+import Container from "framework/patterns/base/container";
 
 // Declared class or variable
 class TypeA {
@@ -21,7 +21,7 @@ class TypeC {
 }
 
 // Test case
-describe('Framework.Patterns.Facade, Container', () => {
+describe('Framework.Patterns.Base, Container', () => {
     it('Class method & Interface', () => {
         assertFunction(Container.prototype.register);
         assertFunction(Container.prototype.remove);
@@ -35,7 +35,7 @@ describe('Framework.Patterns.Facade, Container', () => {
         obj = new Container("MyContainer");
         Assert.equal(obj.name, "MyContainer");
         Assert.equal(obj.count, 0);
-        Assert.equal(typeof obje.storage, "object");
+        Assert.equal(typeof obj.storage, "object");
     });
     describe('Container register', () => {
         it('Case 1 : non-limit register', () => {

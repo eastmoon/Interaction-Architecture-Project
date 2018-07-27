@@ -3,7 +3,6 @@
 
     author: jacky.chen
 */
-
 /*
 class type name retrieve and check
 - Class name : Class.name
@@ -11,15 +10,30 @@ class type name retrieve and check
 - Object type check : [objact] instanceof [class]
 Ref : http://stackoverflow.com/questions/1249531
 */
+import BaseObject from "framework/patterns/base/object";
 
 // Singleton class
-export default class Container {
+export default class Container extends BaseObject{
+    /*
+     * Constructor
+     * @Parma name, if first variable is string, than it mean container name, else will using default container name.
+     * @Parma ...class-type, if param is a function type and have constructor, than it is a type which could register in this container. If limit type didn't setting, than any type could register in this container.
+     */
     constructor(...$args) {
+        // Parser parame
+        let name = null;
+        let limit = $args;
+        if ($args.length > 0 && typeof $args[0] === "string") {
+            name = $args[0];
+            limit = $args.slice(1);
+        }
+        // add name for container
+        super(name);
         // declared member variable
         this._limitType = [];
         this._storage = {};
         // add limit type by $args
-        $args.forEach((item) => {
+        limit.forEach((item) => {
             if (typeof item === "function" && typeof item.constructor === "function") {
                 this._limitType.push(item);
             }
