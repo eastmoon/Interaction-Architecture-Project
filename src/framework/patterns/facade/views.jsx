@@ -8,58 +8,33 @@
 
     author: jacky.chen
 */
+import Container from "framework/patterns/base/container";
 
 // Singleton class
 export default class Views {
     constructor() {
         // declared member variable
-        this.container = {};
+        this._container = new Container();
     }
 
     // View register,
     register($name, $view) {
-        // 1. check view is duplicate or not
-        // view could be duplicate register by same name.
-        if (typeof $view !== "undefined" &&
-            typeof $name !== "undefined"
-        ) {
-            // 2. saving duplicate view.
-            this.container[$name] = $view;
-        } else {
-            // 3. throw error message for duplicate register.
-            return false;
-        }
-        return true;
+        return this._container.register($name, $view);
     }
 
     // View remove,
     remove($name) {
-        // 1. retrieve view, if exist, remove it.
-        const obj = this.retrieve($name);
-        if (obj !== null) {
-            // remove target object in mapping.
-            this.container[$name] = null;
-        }
-        // return target object.
-        return obj;
+        return this._container.remove($name);
     }
 
     // View retrieve,
     retrieve($name) {
-        // using mapping to check, if exist return object, then return undefined
-        if (this.has($name)) {
-            return this.container[$name];
-        }
-        return null;
+        return this._container.retrieve($name);
     }
 
     // View check,
     has($name) {
-        // retireve object, if undefined then dosn't exist.
-        if (typeof this.container[$name] === "undefined" || this.container[$name] === null) {
-            return false;
-        }
-        return true;
+        return this._container.has($name);
     }
 
     // View execute action

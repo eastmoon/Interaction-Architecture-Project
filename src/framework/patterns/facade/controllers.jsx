@@ -4,61 +4,35 @@
 
     author: jacky.chen
 */
+import Container from "framework/patterns/base/container";
 
 // Singleton class
 export default class Controllers {
     constructor() {
         // declared member variable
-        this.container = {};
+        this._container = new Container();
     }
 
     // Command register,
     register($name, $command) {
-        // 1. check command is duplicate or not
-        if (typeof $command !== "undefined" &&
-            typeof $name !== "undefined" &&
-            (typeof this.container[$name] === "undefined" || this.container[$name] === null)
-        ) {
-            // 2. saving non-duplicate command.
-            this.container[$name] = $command;
-        } else {
-            // 3. throw error message for duplicate register.
-            return false;
-        }
-        return true;
+        return this._container.register($name, $command);
     }
 
     // Command remove,
     remove($name) {
-        // 1. check command, if exist, remove it.
-        if (this.has($name)) {
-            // retrieve command
-            const obj = this.container[$name];
-            // remove target object in mapping.
-            this.container[$name] = null;
-            // return target object.
-            return obj;
-        }
-        // return null, it mean no command remove.
-        return null;
+        return this._container.remove($name);
     }
 
     // Command check,
     has($name) {
-        // retireve object, if null then dosn't exist.
-        if (typeof this.container[$name] === "undefined" || this.container[$name] === null) {
-            return false;
-        }
-        return true;
+        return this._container.has($name);
     }
 
     // Command execute,
     execute($name, $param) {
-        if (this.has($name)) {
-            const cmd = this.container[$name];
-            if (typeof cmd.execute !== "undefined") {
-                cmd.execute($param);
-            }
+        const cmd = this._container.retrieve($name);
+        if (typeof cmd.execute !== "undefined" && cmd !== null) {
+            cmd.execute($param);
         }
     }
 }

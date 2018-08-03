@@ -4,29 +4,29 @@
 
     author: jacky.chen
 */
-import Singleton from "utils/patterns/singleton";
-import View from "./view";
-import Controller from "./controller";
-import Model from "./model";
+import Singleton from "framework/patterns/singleton";
+import Views from "framework/patterns/facade/views";
+import Controllers from "framework/patterns/facade/controllers";
+import Models from "framework/patterns/facade/models";
 
 // Singleton class
 export default class Application extends Singleton {
     // Static attribute, Class static name.
     static get appName() {
-        return "System.Application";
+        return "Framework.Facade.Application";
     }
 
-    install() {
-        // console.log("MVC initial");
-        super.install();
+    initial() {
+        //console.log("MVC initial");
+        super.initial();
         // If re-new class, constructor will duplicate call.
         // This issue have two solution.
         // 1. never use new class to retrieve instance
         // 2. re-new class, and when first time call canstructor, will use install function.
         // declared member variable
-        this.views = new View();
-        this.controllers = new Controller();
-        this.models = new Model();
+        this.views = new Views();
+        this.controllers = new Controllers();
+        this.models = new Models();
     }
 
     // Static attribute, retrieve Views object.

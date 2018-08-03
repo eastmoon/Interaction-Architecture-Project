@@ -4,57 +4,32 @@
 
     author: jacky.chen
 */
+import Container from "framework/patterns/base/container";
 
 // Singleton class
 export default class Models {
     constructor() {
         // declared member variable
-        this.container = {};
+        this._container = new Container();
     }
 
     // Model register,
     register($name, $model) {
-        // 1. check model is duplicate or not
-        if (typeof $model !== "undefined" &&
-            typeof $name !== "undefined" &&
-            (typeof this.container[$name] === "undefined" || this.container[$name] === null)
-        ) {
-            // 2. saving non-duplicate model.
-            this.container[$name] = $model;
-        } else {
-            // 3. throw error message for duplicate register.
-            return false;
-        }
-        return true;
+        return this._container.register($name, $model);
     }
 
     // Model remove,
     remove($name) {
-        // 1. retrieve model, if exist, remove it.
-        const obj = this.retrieve($name);
-        if (obj !== null) {
-            // remove target object in mapping.
-            this.container[$name] = null;
-        }
-        // return target object.
-        return obj;
+        return this._container.remove($name);
     }
 
     // Model retrieve,
     retrieve($name) {
-        // using mapping to check, if exist return object, then return null
-        if (this.has($name)) {
-            return this.container[$name];
-        }
-        return null;
+        return this._container.retrieve($name);
     }
 
     // Model check,
     has($name) {
-        // retireve object, if null then dosn't exist.
-        if (typeof this.container[$name] === "undefined" || this.container[$name] === null) {
-            return false;
-        }
-        return true;
+        return this._container.has($name);
     }
 }
