@@ -34,7 +34,11 @@ export default class Subject extends BaseObject {
                 subject: this,
                 handler: $handler
             });
-
+            // 1.3 Remove old notification, if notification exist.
+            if (this._container.has(name)) {
+                this._container.remove(name);
+            }
+            // 1.4 Register new notification.
             this._container.register(notification);
         }
         return notification;

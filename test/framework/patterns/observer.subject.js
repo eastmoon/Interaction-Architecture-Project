@@ -60,13 +60,14 @@ describe('Framework.Patterns.Observer, Subject', () => {
             Assert.equal(notification.info.handler, test.foo);
             Assert.equal(subject.count, 1);
         });
-        it(`Duplicate register`, () => {
+        it(`Replacement register`, () => {
             const test = new A();
             const subject = new Subject("Custom.Name");
-            subject.register(test.foo, test.constructor.name);
+            const oldNotification = subject.register(test.foo, test.constructor.name);
             Assert.equal(subject.count, 1);
-            subject.register(test.foo, test.constructor.name);
+            const newNotification = subject.register(test.foo, test.constructor.name);
             Assert.equal(subject.count, 1);
+            Assert.notEqual(oldNotification, newNotification);
             subject.register(test.foo, "Test");
             Assert.equal(subject.count, 2);
             subject.register(test.bar, test.constructor.name);
