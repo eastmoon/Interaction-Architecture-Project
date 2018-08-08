@@ -24,21 +24,21 @@ export default class Application extends Singleton {
         // 1. never use new class to retrieve instance
         // 2. re-new class, and when first time call canstructor, will use install function.
         // declared member variable
-        this.views = new Views();
-        this.controllers = new Controllers();
-        this.models = new Models();
+        this._views = new Views();
+        this._controllers = new Controllers();
+        this._models = new Models();
     }
 
     // Static attribute, retrieve Views object.
     static get views() {
-        return Application.instance.views;
+        return Application.instance._views;
     }
     // Static attribute, retrieve controllers object.
     static get controllers() {
-        return Application.instance.controllers;
+        return Application.instance._controllers;
     }
     // Static attribute, retrieve models object.
     static get models() {
-        return Application.instance.models;
+        return Application.instance._models;
     }
 }
