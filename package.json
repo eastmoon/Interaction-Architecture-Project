@@ -13,15 +13,22 @@
       "env"
     ],
     "plugins": [
-      ["module-resolver", {
-        "root": ["./src", "./test"]
-      }]
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src",
+            "./test"
+          ]
+        }
+      ]
     ]
   },
   "author": "jacky.chen",
   "license": "MIT",
   "devDependencies": {
-    "axios": "^0.17.1"
+    "axios": "^0.17.1",
+    "immutable": "^3.8.2"
   },
   "dependencies": {
     "babel-cli": "^6.24.1",
