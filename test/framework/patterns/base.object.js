@@ -1,6 +1,6 @@
 // Library, march and assert
 import Assert from "assert";
-import {assertFunction} from "utils/assert";
+import {assertClass} from "utils/assert";
 
 // Singleton Library
 import BaseObject from "framework/patterns/base/object";
@@ -15,6 +15,7 @@ class RenameObject extends BaseObject {
 // Test case
 describe('Framework.Patterns.Base, BaseObject', () => {
     it('Class method & Interface', () => {
+        assertClass(BaseObject);
     });
     it('Inherent & Constructor.', () => {
         let cmd = null;
