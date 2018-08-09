@@ -53,7 +53,6 @@ export default class ImmutableAdaptor extends BaseObject {
         // 2. If result exist, set in.
         if (result) {
             if($node) {
-                console.log($node.concat($key));
                 this._immutable = this._immutable.setIn($node.concat($key), result);
             } else {
                 this._immutable = this._immutable.set($key, result);
@@ -64,21 +63,24 @@ export default class ImmutableAdaptor extends BaseObject {
         //console.log("Get", this);
         //console.log("Get", $node, $key, $immutable);
         let result = $immutable.get($key);
+        let node = $node ? $node.concat($key) : [$key];
         if (result instanceof Immutable.Map) {
-            const node = $node ? $node.push($key) : [$key];
             result = new MapAdapter(result, node, this._getProperty.bind(this), this._setProperty.bind(this));
+        }
+        if (result instanceof Immutable.List) {
+            result = new ListAdapter(result, node, this._getProperty.bind(this), this._setProperty.bind(this));
         }
         return result;
     }
 }
 
-class MapAdapter {
+export class MapAdapter {
     constructor($map, $node, $get, $set) {
         // 1. Save immutable object, and method
         this._immutable = $map;
         this._node = $node;
         // 2. Register dynamice accessor.
-        const iterator = $map.keys();
+        const iterator = this._immutable.keys();
         let item = null;
         do {
             item = iterator.next();
@@ -92,6 +94,27 @@ class MapAdapter {
                 });
             }
         } while(!item.done)
+    }
+    getState() {
+        return this._immutable;
+    }
+}
+
+export class ListAdapter {
+    constructor($list, $node, $get, $set) {
+        // 1. Save immutable object, and method
+        this._immutable = $list;
+        this._node = $node;
+        // 2. Register dynamice accessor.
+        this._immutable.forEach((val, index) => {
+            let key = index;
+            Object.defineProperty(this, key, {
+                get() {return $get(key, this._immutable, this._node)},
+                set(value) {$set(key, value, this._node)},
+                configurable: true,
+                enumerable: true
+            });
+        })
     }
     getState() {
         return this._immutable;
