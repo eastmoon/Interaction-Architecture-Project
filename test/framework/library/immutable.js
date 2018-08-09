@@ -24,4 +24,20 @@ describe('Library, Immutable', () => {
         Assert.ok(!map1.equals(map3));
         Assert.notEqual(map1, map3);
     });
+    it(`Nested Structures`, () => {
+        const nested1 = Immutable.fromJS({a:{b:{c:[3,4,5]}}});
+        const nested2 = nested1.mergeDeep({a:{b:{d:6}}});
+        Assert.equal(nested1.getIn(['a', 'b', 'c']).get(0), 3);
+        Assert.equal(nested1.getIn(['a', 'b', 'c']).toArray()[0], 3);
+        Assert.equal(nested2.getIn(['a', 'b', 'd']), 6);
+    });
+    it(`Map`, () => {
+        let map = Immutable.Map({a:1, b:2, c:3});
+        Assert.equal(map.get("b"), 2);
+        map = map.set("c", 4);
+        Assert.equal(map.get("c"), 4);
+    });
+    it(`list`, () => {
+
+    });
 });
