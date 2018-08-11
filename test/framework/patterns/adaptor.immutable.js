@@ -9,27 +9,30 @@ import ImmutableAdapter, {MapAdapter, ListAdapter} from "framework/patterns/adap
 describe('Framework.Patterns.Adapter, Immutable', () => {
     it('Class method & Interface', () => {
         //
-        assertFunction(ImmutableAdapter.prototype.setState);
-        assertFunction(ImmutableAdapter.prototype.getState);
+        assertFunction(ImmutableAdapter.prototype.set);
+        assertFunction(ImmutableAdapter.prototype.get);
         //
         assertClass(MapAdapter);
-        assertFunction(MapAdapter.prototype.getState);
+        assertFunction(MapAdapter.prototype.get);
+        //
+        assertClass(ListAdapter);
+        assertFunction(MapAdapter.prototype.get);
     });
     it('Inherent & Constructor.', () => {
     });
-    it('Merge data with setState function.', () => {
+    it('Merge data with set function.', () => {
         const ad = new ImmutableAdapter();
-        ad.setState({a: 123, b: 456});
+        ad.set({a: 123, b: 456});
         Assert.equal(ad.a, 123);
         Assert.equal(ad.b, 456);
-        ad.setState({a: 789, c: 987});
+        ad.set({a: 789, c: 987});
         Assert.equal(ad.a, 789);
         Assert.equal(ad.c, 987);
     });
     describe('Adatper immutable get function with get accessor.', () => {
         it(`get nested structures`, () => {
             const ad = new ImmutableAdapter();
-            ad.setState({a: 123, b: 456, c: {x: "ABC", y: "DEF"}});
+            ad.set({a: 123, b: 456, c: {x: "ABC", y: "DEF"}});
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b, 456);
             Assert.equal(ad.c.x, "ABC");
@@ -38,7 +41,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         });
         it(`get list structures`, () => {
             const ad = new ImmutableAdapter();
-            ad.setState({a: 123, b: 456, c: [1, 2, 3]});
+            ad.set({a: 123, b: 456, c: [1, 2, 3]});
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b, 456);
             Assert.equal(ad.c[0], 1);
@@ -50,7 +53,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
     describe('Adatper immutable set function with set accessor.', () => {
         it('set number, string.', () => {
             const ad = new ImmutableAdapter();
-            ad.setState({a: 123, b: {x: 123, y: 123}});
+            ad.set({a: 123, b: {x: 123, y: 123}});
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b.x, 123);
             Assert.equal(ad.b.y, 123);
@@ -63,7 +66,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         });
         it('set list structures.', () => {
             const ad = new ImmutableAdapter();
-            ad.setState({a: 123, b: 456, c: [1, 2, 3]});
+            ad.set({a: 123, b: 456, c: [1, 2, 3]});
             Assert.equal(ad.c[0], 1);
             Assert.equal(ad.c[1], 2);
             Assert.equal(ad.c[2], 3);
@@ -75,7 +78,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         });
         it('set nested structures.', () => {
             const ad = new ImmutableAdapter();
-            ad.setState({a: 123, b: {x: 123, y: 123}});
+            ad.set({a: 123, b: {x: 123, y: 123}});
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b.x, 123);
             Assert.equal(ad.b.y, 123);
