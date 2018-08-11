@@ -45,9 +45,16 @@ export default class Subject extends BaseObject {
     }
     // Remove
     remove($handler, $name) {
-        // 1.1 Create a name by $name & $handler.name
+        // 1 Create a name by $name & $handler.name
         const name = `${$name}_${$handler.name}`;
+        // 2. remove notification in container.
         return this._container.remove(name);
+    }
+    removeAll() {
+        Object.keys(this._container.storage).forEach(name => {
+            let notification = this._container.remove(name);
+            notification = null;
+        });
     }
     // Notify
     notify(...$args) {

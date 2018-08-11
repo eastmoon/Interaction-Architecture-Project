@@ -97,6 +97,15 @@ describe('Framework.Patterns.Observer, Subject', () => {
             Assert.equal(notification, subject.remove(foo, "Test"));
             Assert.equal(subject.count, 0);
         });
+        it(`Remove all notification`, () => {
+            const test = new A();
+            const subject = new Subject("Custom.Name");
+            subject.register(test.foo, "Test");
+            subject.register(test.bar, "Test");
+            Assert.equal(subject.count, 2);
+            subject.removeAll();
+            Assert.equal(subject.count, 0);
+        });
     });
     it(`Notify event`, () => {
         const test = new A();
