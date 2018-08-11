@@ -12,11 +12,11 @@ import Immutable from "immutable";
 
 export default class ImmutableAdapter extends BaseObject {
     // Immutable adapter is a class with wrapper immutable class operation.
-    constructor($name = null, $data = {}, $immutable = null) {
+    constructor($name = null, $data = {}) {
         // 1. Call parent constructor
         super($name);
         // 2. Initial member variable and Get/Set property.
-        this._immutable = $immutable;
+        this._immutable = null;
         this.set($data);
     }
     // Set method, it will set data into immutable object, and create get/set accessor with this object.
@@ -65,7 +65,7 @@ export default class ImmutableAdapter extends BaseObject {
             result = value;
         }
         // 2. If result exist, set in.
-        if (result) {
+        if (result !== null) {
             if(node) {
                 this._immutable = this._immutable.setIn(node.concat(key), result);
             } else {

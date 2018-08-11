@@ -5,8 +5,6 @@ Adapter is a object which translation three-party library to the same interface 
 
 author: jacky.chen
 */
-
-import from ""
 import Immutable from "./immutable";
 
 export default class Adapter {
