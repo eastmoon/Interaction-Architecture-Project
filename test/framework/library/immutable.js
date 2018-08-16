@@ -2,7 +2,7 @@
 import Assert from "assert";
 
 // Library
-import Immutable from "immutable";
+import Immutable, {fromJS} from "immutable";
 
 // Test case
 describe('Library, Immutable', () => {
@@ -40,4 +40,32 @@ describe('Library, Immutable', () => {
     it(`list`, () => {
 
     });
+    describe(`Type check`, ()=> {
+        it(`Collection include Map, List, Set`, () => {
+            // In immutable.js ver 3.8.2, isImmutable and other type check function is not exposed.
+            // Ref : https://github.com/facebook/immutable-js/issues/1165
+            // Fix it, using Collection, which is the base class for all collection in immutable
+            // Ref : https://facebook.github.io/immutable-js/docs/#/Collection/Indexed
+            Assert.ok(Immutable.Map() instanceof Immutable.Collection);
+            Assert.ok(Immutable.List() instanceof Immutable.Collection);
+            Assert.ok(Immutable.Set() instanceof Immutable.Collection);
+        });
+        it(`Seq isn't inherence Collection`, () => {
+            // Immutable.Seq is not inherence of Immutable.Collection
+            // Even Seq could translation to other Immutable.Collection, but if auto-translation, it may broken the data structure with original data.
+            const oddSquares = Immutable.Seq([ 1, 2, 3, 4, 5, 6, 7, 8 ])
+            .filter(x => x % 2 !== 0)
+            .map(x => x * x);
+            Assert.ok(oddSquares instanceof Immutable.Seq);
+            Assert.ok(!(oddSquares instanceof Immutable.Collection));
+            Assert.ok(oddSquares.toMap() instanceof Immutable.Collection);
+            Assert.ok(oddSquares.toMap() instanceof Immutable.Map);
+            Assert.ok(oddSquares.toList() instanceof Immutable.List);
+            Assert.ok(oddSquares.toSet() instanceof Immutable.Set);
+
+            // If want to translation to Immutable.Collection, use toJS to JS object, then use fromJS translation to Immutable.Collection object.
+            Assert.ok(fromJS(oddSquares.toJS()) instanceof Immutable.Collection);
+        });
+
+    })
 });

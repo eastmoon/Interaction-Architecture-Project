@@ -21,15 +21,20 @@ export default class ImmutableAdapter extends BaseObject {
     }
     // Set method, it will set data into immutable object, and create get/set accessor with this object.
     set($data) {
-        // 1. Generate immutable dataSet by input data.
+        // 1. Check input data, if data is immutable object, then translation to JS object.
+        let input = $data;
+        if ($data instanceof Immutable.Collection || $data instanceof Immutable.Seq) {
+            input = $data.toJS();
+        }
+        // 2. Generate immutable dataSet by input data.
         if (this._immutable) {
-            let temp = this._immutable.mergeDeep($data);
+            let temp = this._immutable.mergeDeep(input);
             this._immutable = temp;
         } else {
-            this._immutable = Immutable.fromJS($data);
+            this._immutable = Immutable.fromJS(input);
         }
-        // 2. Register dynamice accessor.
-        Object.keys($data).forEach((key) => {
+        // 3. Register dynamice accessor.
+        Object.keys(input).forEach((key) => {
             Object.defineProperty(this, key, {
                 get() {return this._getProperty({
                   key: key,

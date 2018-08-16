@@ -92,6 +92,17 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.b.x.i, 10);
             Assert.equal(ad.b.x.j, 100);
         });
+        it('set immutable object.', () => {
+            const ad =new ImmutableAdapter();
+            ad.set({a: 123, b: 456});
+            const temp = ad.get().set('a', 789);
+            Assert.equal(ad.a, 123);
+            Assert.equal(ad.b, 456);
+            Assert.equal(temp.get('a'), 789);
+            ad.set(temp);
+            Assert.equal(ad.a, 789);
+            Assert.equal(ad.b, 456);
+        });
     });
 
 });
