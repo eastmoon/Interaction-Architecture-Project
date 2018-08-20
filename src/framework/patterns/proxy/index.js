@@ -16,6 +16,7 @@ import Container from "framework/patterns/base/container";
 import Adapter from "framework/patterns/adapter";
 import Observer from "framework/patterns/observer";
 
+export const PROXY_UPDATE = "framewrok.patterns.proxy.update";
 export default class Proxy extends Adapter.Immutable {
     constructor($name) {
         // 1. Call parent
@@ -27,6 +28,7 @@ export default class Proxy extends Adapter.Immutable {
         }
         // 3. Initial observable object, it was a container which will register Observer.Subject.
         this._observable = new Container(Observer.Subject);
+        this._updatetimer = null;
     }
 
     // Observe accessor
@@ -79,22 +81,79 @@ export default class Proxy extends Adapter.Immutable {
           }
     }
 
+    // Overriding set method
+    set($data) {
+        // 1. Save data with parent set method, and retrieve JS object which saving in proxy.
+        const data = super.set($data);
+        // 2. Resolve node path in data.
+        const token = this._resolveTokenInObject($data);
+        // 3. Notify
+        this._notify(token);
+    }
+    // Resolve
+    _resolveTokenInObject($data, $node = null) {
+        let result = [];
+        Object.keys($data).forEach((key) => {
+            // 1. if value is JS object, call recursive function _resolveTokenInObject to resolve node path.
+            if (typeof $data[key] === "object") {
+                result = result.concat(this._resolveTokenInObject(
+                  $data[key],
+                  $node ? `${$node}.${key}` : key
+                ));
+            }
+            // 2. Saving current node path.
+            result.push($node ? `${$node}.${key}` : key);
+        });
+        return result;
+    }
     // Overriding set property method
     _setProperty($args) {
         // 1. Save data with parent set accessor.
         super._setProperty($args);
         // 2. Notify this token, if token have some handler observer.
+        // When notify happen, every node in attribute path will check and trigger notification.
         let token = null;
         if ($args.node) {
-            token = `${$args.node}.${$args.key}`;
+            let node = $args.node.concat($args.key);
+            let temp = "";
+            token = [];
+            node.forEach((value, index) => {
+                temp = index ? `${temp}.${value}` : value;
+                token.push(temp);
+            });
         } else {
-            token = $args.key;
+            token = [$args.key];
         }
         //console.log("Proxy set property", token);
-        // 3. Retrieve subject by token.
-        let subject = this._observable.retrieve(token);
-        if (subject) {
-            subject.notify(this);
+        // 3. Noityf by token.
+        this._notify(token);
+    }
+
+    // Notify with input token
+    // Input token will be a string array, every string is a attribute path.
+    _notify($token) {
+        if (this._observable && $token.length > 0) {
+            // 1. if token have a subject observe, trigger notify.
+            $token.forEach((value) => {
+                let subject = this._observable.retrieve(value);
+                if (subject) {
+                    subject.notify(this);
+                }
+            });
+
+            // 2. notify is call, it mean proxy data have change.
+            // It will trigger a PROXY_UPDATE notify, when last proxy data change and after 0.1 ms.
+            // NOTE : 0.1 ms is a hypothesis value, it mean every proxy data change in function or algorithm will interval in this value.
+            // So, if out of this value, it will update many time in function.
+            if (this._updatetimer) {
+                clearTimeout(this._updatetimer);
+            }
+            this._updatetimer = setTimeout(() => {
+                let subject = this._observable.retrieve(PROXY_UPDATE);
+                if (subject) {
+                    subject.notify(this);
+                }
+            }, 0.1);
         }
     }
 }

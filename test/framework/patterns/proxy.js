@@ -3,7 +3,7 @@ import Assert from "assert";
 import {assertClass, assertFunction} from "utils/assert";
 
 // Framework Library
-import Proxy from "framework/patterns/proxy";
+import Proxy, {PROXY_UPDATE} from "framework/patterns/proxy";
 
 // Test class & function
 class A extends Proxy {}
@@ -34,6 +34,11 @@ function bar($notify, $proxy) {
     Assert.equal($proxy.t, 789);
     $proxy.x = 123;
     $proxy.count += 5;
+}
+
+function add($notify, $proxy) {
+    //console.log("Function Bar");
+    $proxy.count += 1;
 }
 
 // Test case
@@ -107,6 +112,44 @@ describe('Framework.Patterns.Proxy', () => {
             proxy.observe("t", bar, "window");
             proxy.t = 789;
             Assert.equal(proxy.count, 15);
+        });
+        it(`Change attribute, and notify all nodes by path.`, () => {
+            const proxy = new A();
+            proxy.set({i: {j: {a: 123, b: 123}}, count: 0});
+            Assert.equal(proxy.i.j.a, 123);
+            Assert.equal(proxy.i.j.b, 123);
+            proxy.observe("i", add, "window");
+            proxy.observe("i.j", add, "window");
+            proxy.i.j.a = 456;
+            Assert.equal(proxy.count, 2);
+            Assert.equal(proxy.i.j.a, 456);
+            Assert.equal(proxy.i.j.b, 123);
+        });
+        it(`Observe at set method`, () => {
+            const proxy = new A();
+            proxy.set({i: {a: 123, b: 123}, count: 0});
+            Assert.equal(proxy.i.a, 123);
+            Assert.equal(proxy.i.b, 123);
+            proxy.observe("i", add, "window");
+            proxy.observe("i.a", add, "window");
+            const temp = {i: {a: 456, b:789}};
+            //const temp = proxy.get().setIn(["i", "a"], 456).setIn(["i", "b"], 789);
+            proxy.set(temp);
+            Assert.equal(proxy.count, 2);
+            Assert.equal(proxy.i.a, 456);
+            Assert.equal(proxy.i.b, 789);
+        });
+        it(`Observe at OBSERVE.UPDATE`, () => {
+            const proxy = new A();
+            proxy.observe(PROXY_UPDATE, ($notify, $proxy) => {
+                Assert.equal($notify.name, PROXY_UPDATE);
+                Assert.equal($proxy.x, 123);
+                Assert.equal($proxy.y, 123);
+                Assert.equal($proxy.z, 123);
+            }, "window");
+            proxy.x = 123;
+            proxy.y = 123;
+            proxy.z = 123;
         });
     });
     describe('Remove observe', () => {

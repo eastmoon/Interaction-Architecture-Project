@@ -20,6 +20,8 @@ export default class ImmutableAdapter extends BaseObject {
         this.set($data);
     }
     // Set method, it will set data into immutable object, and create get/set accessor with this object.
+    // @param $data: The input will merge into current immutable, it could be JS object, Immutable object.
+    // @return : The data which merge into current immutable, it is JS object.
     set($data) {
         // 1. Check input data, if data is immutable object, then translation to JS object.
         let input = $data;
@@ -50,6 +52,7 @@ export default class ImmutableAdapter extends BaseObject {
                 enumerable: true
             });
         });
+        return input;
     }
     // Get method, it will return current immutable object.
     get() {
