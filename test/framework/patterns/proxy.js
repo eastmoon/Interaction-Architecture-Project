@@ -151,6 +151,7 @@ describe('Framework.Patterns.Proxy', () => {
             proxy.y = 123;
             proxy.z = 123;
         });
+        it(`Observe will not notify if data not-changed.`, () => {
               const proxy = new A();
               proxy.set({count: 0});
               proxy.observe("x", add, "window");
