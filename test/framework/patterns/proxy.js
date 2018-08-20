@@ -151,6 +151,24 @@ describe('Framework.Patterns.Proxy', () => {
             proxy.y = 123;
             proxy.z = 123;
         });
+              const proxy = new A();
+              proxy.set({count: 0});
+              proxy.observe("x", add, "window");
+              proxy.observe("y", add, "window");
+              proxy.observe("z", add, "window");
+              // set method
+              proxy.set({
+                x: 852,
+                y: 951,
+                z: 753
+              })
+              Assert.equal(proxy.count, 0);
+              // set property
+              proxy.x = 852;
+              proxy.y = 951;
+              proxy.z = 753;
+              Assert.equal(proxy.count, 0);
+        });
     });
     describe('Remove observe', () => {
         it(`Remove one by one.`, () => {
@@ -162,18 +180,18 @@ describe('Framework.Patterns.Proxy', () => {
             Assert.equal(proxy.y, 951);
             Assert.equal(proxy.z, 753);
             proxy.observe("x", foo, "window");
-            proxy.observe("x", tar, "window");
+            proxy.observe("x", add, "window");
             proxy.x = 123;
             Assert.equal(proxy.count, 11);
             // remove one
             proxy.count = 0;
             proxy.removeObserve("x", foo, "window");
-            proxy.x = 123;
+            proxy.x = 456;
             Assert.equal(proxy.count, 1);
             // remove other one
             proxy.set({count: 0});
-            proxy.removeObserve("x", tar, "window");
-            proxy.x = 123;
+            proxy.removeObserve("x", add, "window");
+            proxy.x = 789;
             Assert.equal(proxy.count, 0);
         });
         it(`Remove subject.`, () => {

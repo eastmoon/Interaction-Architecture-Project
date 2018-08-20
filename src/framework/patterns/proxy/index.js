@@ -84,11 +84,15 @@ export default class Proxy extends Adapter.Immutable {
     // Overriding set method
     set($data) {
         // 1. Save data with parent set method, and retrieve JS object which saving in proxy.
+        const origin = this.get();
         const data = super.set($data);
-        // 2. Resolve node path in data.
-        const token = this._resolveTokenInObject($data);
-        // 3. Notify
-        this._notify(token);
+        if (!this.equals(origin)) {
+            // 2. Resolve node path in data.
+            const token = this._resolveTokenInObject($data);
+            // 3. Notify
+            this._notify(token);
+        }
+
     }
     // Resolve
     _resolveTokenInObject($data, $node = null) {
@@ -109,24 +113,27 @@ export default class Proxy extends Adapter.Immutable {
     // Overriding set property method
     _setProperty($args) {
         // 1. Save data with parent set accessor.
+        const origin = this.get();
         super._setProperty($args);
-        // 2. Notify this token, if token have some handler observer.
-        // When notify happen, every node in attribute path will check and trigger notification.
-        let token = null;
-        if ($args.node) {
-            let node = $args.node.concat($args.key);
-            let temp = "";
-            token = [];
-            node.forEach((value, index) => {
-                temp = index ? `${temp}.${value}` : value;
-                token.push(temp);
-            });
-        } else {
-            token = [$args.key];
+        if (!this.equals(origin)) {
+            // 2. Notify this token, if token have some handler observer.
+            // When notify happen, every node in attribute path will check and trigger notification.
+            let token = null;
+            if ($args.node) {
+                let node = $args.node.concat($args.key);
+                let temp = "";
+                token = [];
+                node.forEach((value, index) => {
+                    temp = index ? `${temp}.${value}` : value;
+                    token.push(temp);
+                });
+            } else {
+                token = [$args.key];
+            }
+            //console.log("Proxy set property", token);
+            // 3. Noityf by token.
+            this._notify(token);
         }
-        //console.log("Proxy set property", token);
-        // 3. Noityf by token.
-        this._notify(token);
     }
 
     // Notify with input token
