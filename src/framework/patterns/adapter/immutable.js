@@ -58,6 +58,14 @@ export default class ImmutableAdapter extends BaseObject {
     get() {
         return this._immutable;
     }
+    // Equal method
+    equals($target) {
+        let immutable = $target;
+        if ($target instanceof ImmutableAdapter) {
+            immutable = $target.get();
+        }
+        return Immutable.is(this._immutable, immutable);
+    }
     // Set Property method [private, prototected], all set accessor will call it to work.
     // In this method, value is object will using Immutable to translation first.
     // And the node exist, it mean data need to saving in nested structures.

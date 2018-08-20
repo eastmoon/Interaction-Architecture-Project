@@ -125,5 +125,15 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.b.y, 789);
         });
     });
-
+    it('Adatper equals', () => {
+        const ad = new ImmutableAdapter();
+        ad.set({a: 123, b: 456, c: [1, 2, 3]});
+        const temp1 = ad.get().set("a", 789).set("a", 123);
+        Assert.ok(ad.equals(temp1));
+        const temp2 = new ImmutableAdapter();
+        temp2.set({a: 123, b: 456, c: [1, 2, 3]});
+        Assert.ok(ad.equals(temp2));
+        const temp3 = ad.get().set("a", 789);
+        Assert.ok(!ad.equals(temp3));
+    });
 });
