@@ -50,7 +50,28 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.ok(ad.c instanceof ListAdapter);
         });
     });
-    describe('Adatper immutable set function with set accessor.', () => {
+    describe('Adatper immutable set with set method.', () => {
+        it('js object.', () => {
+            const ad =new ImmutableAdapter();
+            ad.set({a: 123, b: 456});
+            const temp = ad.get().set('a', 789);
+            Assert.equal(ad.a, 123);
+            Assert.equal(ad.b, 456);
+            Assert.equal(temp.get('a'), 789);
+        });
+        it('immutable object.', () => {
+            const ad =new ImmutableAdapter();
+            ad.set({a: 123, b: 456});
+            const temp = ad.get().set('a', 789);
+            Assert.equal(ad.a, 123);
+            Assert.equal(ad.b, 456);
+            Assert.equal(temp.get('a'), 789);
+            ad.set(temp);
+            Assert.equal(ad.a, 789);
+            Assert.equal(ad.b, 456);
+        });
+    });
+    describe('Adatper immutable set with set accessor.', () => {
         it('set number, string.', () => {
             const ad = new ImmutableAdapter();
             ad.set({a: 123, b: {x: 123, y: 123}});
@@ -94,14 +115,14 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         });
         it('set immutable object.', () => {
             const ad =new ImmutableAdapter();
-            ad.set({a: 123, b: 456});
-            const temp = ad.get().set('a', 789);
+            ad.set({a: 123, b: {x: 123, y: 123}});
+            const temp = ad.b.get().set('x', 456).set('y', 789);
             Assert.equal(ad.a, 123);
-            Assert.equal(ad.b, 456);
-            Assert.equal(temp.get('a'), 789);
-            ad.set(temp);
-            Assert.equal(ad.a, 789);
-            Assert.equal(ad.b, 456);
+            Assert.equal(ad.b.x, 123);
+            Assert.equal(ad.b.y, 123);
+            ad.b = temp;
+            Assert.equal(ad.b.x, 456);
+            Assert.equal(ad.b.y, 789);
         });
     });
 
