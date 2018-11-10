@@ -21,14 +21,14 @@ class TypeC {
 }
 
 // Test case
-describe('Framework.Patterns.Base, Container', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Base, Container", () => {
+    it("Class method & Interface", () => {
         assertFunction(Container.prototype.register);
         assertFunction(Container.prototype.remove);
         assertFunction(Container.prototype.retrieve);
         assertFunction(Container.prototype.has);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         let obj = null;
         obj = new Container();
         Assert.equal(obj.name, "Container");
@@ -37,8 +37,8 @@ describe('Framework.Patterns.Base, Container', () => {
         Assert.equal(obj.count, 0);
         Assert.equal(typeof obj.storage, "object");
     });
-    describe('Container register', () => {
-        it('Case 1 : non-limit register', () => {
+    describe("Container register", () => {
+        it("Case 1 : non-limit register", () => {
             const container = new Container();
             Assert.ok(container.register(new TypeA()));
             Assert.ok(container.register("TestA", new TypeA()));
@@ -46,7 +46,7 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.ok(container.register("TestB", new TypeB()));
             Assert.equal(container.count, 4);
         });
-        it('Case 2 : limit register', () => {
+        it("Case 2 : limit register", () => {
             const container = new Container(TypeA);
             Assert.ok(container.register(new TypeA()));
             Assert.ok(container.register("TestA", new TypeA()));
@@ -54,7 +54,7 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.ok(!container.register("TestB", new TypeB()));
             Assert.equal(container.count, 2);
         });
-        it('Case 3 : duplicate object registration, it mean register object have the same name.', () => {
+        it("Case 3 : duplicate object registration, it mean register object have the same name.", () => {
             let container = null;
             //
             container = new Container(TypeA);
@@ -68,8 +68,8 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.equal(container.count, 1);
         });
     });
-    describe('Container remove.', () => {
-        it('Case 1 : remove object that have registration', () => {
+    describe("Container remove.", () => {
+        it("Case 1 : remove object that have registration", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             const obj2 = new TypeC("OBJ2");
@@ -81,7 +81,7 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.equal(container.remove(obj2), obj2);
             Assert.equal(container.count, 0);
         });
-        it('Case 2 : duplicate remove the same name object', () => {
+        it("Case 2 : duplicate remove the same name object", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             const obj2 = new TypeC("OBJ2");
@@ -94,8 +94,8 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.equal(container.count, 1);
         });
     });
-    describe('Container retrieve.', () => {
-        it('Case 1 : retrieve object that have registration', () => {
+    describe("Container retrieve.", () => {
+        it("Case 1 : retrieve object that have registration", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             const obj2 = new TypeC("OBJ2");
@@ -106,7 +106,7 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.equal(container.retrieve(obj2), obj2);
             Assert.equal(container.count, 2);
         });
-        it('Case 2 : retrieve non-register object', () => {
+        it("Case 2 : retrieve non-register object", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             const obj2 = new TypeC("OBJ2");
@@ -124,8 +124,8 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.equal(container.retrieve(obj2), null);
         });
     });
-    describe('Container has.', () => {
-        it('Case 1 : container has object that have registration', () => {
+    describe("Container has.", () => {
+        it("Case 1 : container has object that have registration", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             const obj2 = new TypeC("OBJ2");
@@ -136,7 +136,7 @@ describe('Framework.Patterns.Base, Container', () => {
             Assert.ok(container.has(obj2));
             Assert.equal(container.count, 2);
         });
-        it('Case 1 : container not have non-registration object', () => {
+        it("Case 1 : container not have non-registration object", () => {
             const container = new Container();
             const obj1 = new TypeC("OBJ1");
             container.register(obj1);

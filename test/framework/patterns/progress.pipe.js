@@ -3,9 +3,10 @@
 //import {assertFunction} from "utils/assert";
 
 // Test case
-describe('Framework.Progress, ProgressController', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Progress, Pipe", () => {
+    it("Class method & Interface", () => {
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
     });
+    it("")
 });

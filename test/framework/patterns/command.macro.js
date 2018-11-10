@@ -30,15 +30,15 @@ class Decrease extends SimpleCommand  {
 }
 
 // Test case
-describe('Framework.Patterns.Command, MacroCommand', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Command, MacroCommand", () => {
+    it("Class method & Interface", () => {
         assertFunction(MacroCommand.prototype.register);
         assertFunction(MacroCommand.prototype.remove);
         assertFunction(MacroCommand.prototype.retrieve);
         assertFunction(MacroCommand.prototype.has);
         assertFunction(MacroCommand.prototype.execute);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         let cmd = null;
         cmd = new MacroCommand();
         Assert.equal(cmd.name, "MacroCommand");
@@ -46,8 +46,8 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
         Assert.equal(cmd.name, "Command");
         Assert.equal(cmd.count, 0);
     });
-    describe('Container register', () => {
-        it('Case 1 : normal register', () => {
+    describe("Container register", () => {
+        it("Case 1 : normal register", () => {
             const macro = new MacroCommand();
             macro.register(new SimpleCommand());
             macro.register(new SimpleCommand("TestSimpleCommand"));
@@ -55,13 +55,13 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             macro.register(new MacroCommand("TestMacroCommand"));
             Assert.equal(macro.count, 4);
         });
-        it('Case 2 : non-inherent command register', () => {
+        it("Case 2 : non-inherent command register", () => {
             const macro = new MacroCommand();
             macro.register(new SimpleCommand());
             macro.register(new FakeCommand());
             Assert.equal(macro.count, 1);
         });
-        it('Case 3 : duplicate command register, register command has same name', () => {
+        it("Case 3 : duplicate command register, register command has same name", () => {
             let macro = null;
             let simple = null;
             // register the same default name (class name)
@@ -77,8 +77,8 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.equal(macro.count, 1);
         });
     });
-    describe('Container remove.', () => {
-        it('Case 1 : normal remove', () => {
+    describe("Container remove.", () => {
+        it("Case 1 : normal remove", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             const cmd2 = new SimpleCommand("COM2");
@@ -90,7 +90,7 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             macro.remove(cmd1.name);
             Assert.equal(macro.count, 0);
         });
-        it('Case 2 : duplicate remove the same name command', () => {
+        it("Case 2 : duplicate remove the same name command", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             const cmd2 = new SimpleCommand("COM2");
@@ -103,8 +103,8 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.equal(macro.count, 1);
         });
     });
-    describe('Container retrieve.', function () {
-        it('Case 1 : retrieve register command', () => {
+    describe("Container retrieve.", function () {
+        it("Case 1 : retrieve register command", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             const cmd2 = new SimpleCommand("COM2");
@@ -115,7 +115,7 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.equal(macro.retrieve(cmd2.name), cmd2);
             Assert.equal(macro.count, 2);
         });
-        it('Case 2 : retrieve non-register command', () => {
+        it("Case 2 : retrieve non-register command", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             const cmd2 = new SimpleCommand("COM2");
@@ -133,8 +133,8 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.equal(macro.retrieve(cmd2.name), null);
         });
     });
-    describe('Container has.', function () {
-        it('Case 1 : macro has register command', () => {
+    describe("Container has.", function () {
+        it("Case 1 : macro has register command", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             const cmd2 = new SimpleCommand("COM2");
@@ -145,7 +145,7 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.ok(macro.has(cmd2.name) >= 0);
             Assert.equal(macro.count, 2);
         });
-        it('Case 1 : macro has non-register command', () => {
+        it("Case 1 : macro has non-register command", () => {
             const macro = new MacroCommand();
             const cmd1 = new SimpleCommand("COM1");
             macro.register(cmd1);
@@ -154,8 +154,8 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             Assert.equal(macro.count, 1);
         });
     });
-    describe('Command execute.', function () {
-        it('Case 1 : calculate by command', () => {
+    describe("Command execute.", function () {
+        it("Case 1 : calculate by command", () => {
             const macro = new MacroCommand();
             const result = {
                 value: 0,
@@ -171,7 +171,7 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             macro.execute(result);
             Assert.equal(result.value, 1);
         });
-        it('Case 2 : command is sequence execute.', () => {
+        it("Case 2 : command is sequence execute.", () => {
             const macro = new MacroCommand();
             const result = {
                 value: 0,
@@ -187,7 +187,7 @@ describe('Framework.Patterns.Command, MacroCommand', () => {
             macro.execute(result);
             Assert.equal(result.msg, "IIDIIDD");
         });
-        it('Case 3 : nested execute.', () => {
+        it("Case 3 : nested execute.", () => {
             const macro = new MacroCommand();
             const increase = new MacroCommand("IncreaseMacro");
             const decrease = new MacroCommand("DecreaseMacro");

@@ -19,11 +19,11 @@ class RenameCommand extends SimpleCommand {
 }
 
 // Test case
-describe('Framework.Patterns.Command, SimpleCommand', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Command, SimpleCommand", () => {
+    it("Class method & Interface", () => {
         assertFunction(SimpleCommand.prototype.execute);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         let cmd = null;
         cmd = new SimpleCommand();
         Assert.equal(cmd.name, "SimpleCommand");
@@ -32,7 +32,7 @@ describe('Framework.Patterns.Command, SimpleCommand', () => {
         cmd = new RenameCommand();
         Assert.equal(cmd.name, "RenameAtConstructor");
     });
-    it('Command execute', () => {
+    it("Command execute", () => {
         const cmd = new TestCommand();
         Assert.ok(typeof cmd.value === "undefined");
         cmd.execute();

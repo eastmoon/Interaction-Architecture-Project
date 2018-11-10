@@ -6,8 +6,8 @@ import {assertClass, assertFunction} from "utils/assert";
 import ImmutableAdapter, {MapAdapter, ListAdapter} from "framework/patterns/adapter/immutable";
 
 // Test case
-describe('Framework.Patterns.Adapter, Immutable', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Adapter, Immutable", () => {
+    it("Class method & Interface", () => {
         //
         assertFunction(ImmutableAdapter.prototype.set);
         assertFunction(ImmutableAdapter.prototype.get);
@@ -18,9 +18,9 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         assertClass(ListAdapter);
         assertFunction(MapAdapter.prototype.get);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
     });
-    it('Merge data with set function.', () => {
+    it("Merge data with set function.", () => {
         const ad = new ImmutableAdapter();
         ad.set({a: 123, b: 456});
         Assert.equal(ad.a, 123);
@@ -29,7 +29,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
         Assert.equal(ad.a, 789);
         Assert.equal(ad.c, 987);
     });
-    describe('Adatper immutable get function with get accessor.', () => {
+    describe("Adatper immutable get function with get accessor.", () => {
         it(`get nested structures`, () => {
             const ad = new ImmutableAdapter();
             ad.set({a: 123, b: 456, c: {x: "ABC", y: "DEF"}});
@@ -50,29 +50,29 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.ok(ad.c instanceof ListAdapter);
         });
     });
-    describe('Adatper immutable set with set method.', () => {
-        it('js object.', () => {
+    describe("Adatper immutable set with set method.", () => {
+        it("js object.", () => {
             const ad =new ImmutableAdapter();
             ad.set({a: 123, b: 456});
-            const temp = ad.get().set('a', 789);
+            const temp = ad.get().set("a", 789);
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b, 456);
-            Assert.equal(temp.get('a'), 789);
+            Assert.equal(temp.get("a"), 789);
         });
-        it('immutable object.', () => {
+        it("immutable object.", () => {
             const ad =new ImmutableAdapter();
             ad.set({a: 123, b: 456});
-            const temp = ad.get().set('a', 789);
+            const temp = ad.get().set("a", 789);
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b, 456);
-            Assert.equal(temp.get('a'), 789);
+            Assert.equal(temp.get("a"), 789);
             ad.set(temp);
             Assert.equal(ad.a, 789);
             Assert.equal(ad.b, 456);
         });
     });
-    describe('Adatper immutable set with set accessor.', () => {
-        it('set number, string.', () => {
+    describe("Adatper immutable set with set accessor.", () => {
+        it("set number, string.", () => {
             const ad = new ImmutableAdapter();
             ad.set({a: 123, b: {x: 123, y: 123}});
             Assert.equal(ad.a, 123);
@@ -85,7 +85,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.b.x, 789);
             Assert.equal(ad.b.y, 987);
         });
-        it('set list structures.', () => {
+        it("set list structures.", () => {
             const ad = new ImmutableAdapter();
             ad.set({a: 123, b: 456, c: [1, 2, 3]});
             Assert.equal(ad.c[0], 1);
@@ -97,7 +97,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.c[1], 2);
             Assert.equal(ad.c[2], 987);
         });
-        it('set nested structures.', () => {
+        it("set nested structures.", () => {
             const ad = new ImmutableAdapter();
             ad.set({a: 123, b: {x: 123, y: 123}});
             Assert.equal(ad.a, 123);
@@ -113,10 +113,10 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.b.x.i, 10);
             Assert.equal(ad.b.x.j, 100);
         });
-        it('set immutable object.', () => {
+        it("set immutable object.", () => {
             const ad =new ImmutableAdapter();
             ad.set({a: 123, b: {x: 123, y: 123}});
-            const temp = ad.b.get().set('x', 456).set('y', 789);
+            const temp = ad.b.get().set("x", 456).set("y", 789);
             Assert.equal(ad.a, 123);
             Assert.equal(ad.b.x, 123);
             Assert.equal(ad.b.y, 123);
@@ -125,7 +125,7 @@ describe('Framework.Patterns.Adapter, Immutable', () => {
             Assert.equal(ad.b.y, 789);
         });
     });
-    it('Adatper equals', () => {
+    it("Adatper equals", () => {
         const ad = new ImmutableAdapter();
         ad.set({a: 123, b: 456, c: [1, 2, 3]});
         const temp1 = ad.get().set("a", 789).set("a", 123);

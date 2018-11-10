@@ -14,12 +14,12 @@ function testHandler($info, $args1) {
     $args1.B = "B";
 }
 // Test case
-describe('Framework.Patterns.Observer, Notification', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Observer, Notification", () => {
+    it("Class method & Interface", () => {
         assertClass(Notification)
         assertFunction(Notification.prototype.update);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         const subjectInfo = {
             Subject: "Custom.Subject",
             Var: 123
@@ -30,7 +30,7 @@ describe('Framework.Patterns.Observer, Notification', () => {
         Assert.ok(notify.info.Subject === "Custom.Subject");
         Assert.ok(notify.info.Var === 123);
     });
-    it('Trigger update.', () => {
+    it("Trigger update.", () => {
         const subjectInfo = {
             Subject: "Custom.Subject",
             Var: 123

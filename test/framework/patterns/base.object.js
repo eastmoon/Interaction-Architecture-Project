@@ -13,11 +13,11 @@ class RenameObject extends BaseObject {
 }
 
 // Test case
-describe('Framework.Patterns.Base, BaseObject', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Base, BaseObject", () => {
+    it("Class method & Interface", () => {
         assertClass(BaseObject);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         let cmd = null;
         cmd = new BaseObject();
         Assert.equal(cmd.name, "BaseObject");

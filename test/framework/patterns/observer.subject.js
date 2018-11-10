@@ -29,18 +29,18 @@ function foo($event, $args) {
 }
 
 // Test case
-describe('Framework.Patterns.Observer, Subject', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Observer, Subject", () => {
+    it("Class method & Interface", () => {
         assertClass(Subject)
         assertFunction(Subject.prototype.register);
         assertFunction(Subject.prototype.remove);
         assertFunction(Subject.prototype.notify);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         const subject = new Subject("Custom.Name");
         Assert.ok(subject.name = "Custom.Name");
     });
-    describe('Register notification', () => {
+    describe("Register notification", () => {
         it(`Normal register at function`, () => {
             const subject = new Subject("Custom.Name");
             const notification = subject.register(foo, "TestFun");
@@ -74,7 +74,7 @@ describe('Framework.Patterns.Observer, Subject', () => {
             Assert.equal(subject.count, 3);
         });
     });
-    describe('Remove notification', () => {
+    describe("Remove notification", () => {
         it(`Normal remove`, () => {
             const subject = new Subject("Custom.Name");
             const notification = subject.register(foo, "TestFun");

@@ -20,17 +20,17 @@ class ChildrenSingletonRename extends Singleton {
 }
 
 // Test case
-describe('Framework.Patterns.Singleton, CrossIframeSingleton', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Singleton, CrossIframeSingleton", () => {
+    it("Class method & Interface", () => {
         Assert.ok(typeof Singleton.appName !== "undefined" && typeof Singleton.appName === "string");
         Assert.ok(typeof Singleton.instance !== "undefined" && typeof Singleton.instance === "object");
     });
-    it('Inherent Singleton.', () => {
+    it("Inherent Singleton.", () => {
         Assert.equal(Singleton.appName, "CrossIframeSingleton");
         Assert.equal(ChildrenSingleton.appName, "ChildrenSingleton");
         Assert.equal(ChildrenSingletonRename.appName, "RenameSingleton");
     });
-    it('Singleton object is only one.', () => {
+    it("Singleton object is only one.", () => {
         Assert.notEqual(Singleton, ChildrenSingleton);
         Assert.equal(new ChildrenSingleton(), ChildrenSingleton.instance);
         Assert.equal(ChildrenSingleton.instance.value, 123);

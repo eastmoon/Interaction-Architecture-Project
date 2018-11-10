@@ -42,13 +42,13 @@ function add($notify, $proxy) {
 }
 
 // Test case
-describe('Framework.Patterns.Proxy', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Proxy", () => {
+    it("Class method & Interface", () => {
         assertClass(Proxy);
         assertFunction(Proxy.prototype.observe);
         assertFunction(Proxy.prototype.removeObserve);
     });
-    describe('Inherent & Constructor.', () => {
+    describe("Inherent & Constructor.", () => {
         it(`Proxy initial with proxyDefined`, () => {
             class B extends Proxy {}
             B.proxyDefined = {
@@ -91,7 +91,7 @@ describe('Framework.Patterns.Proxy', () => {
             Assert.equal(proxy.z, 789);
         });
     });
-    describe('Observe proxy attribute', () => {
+    describe("Observe proxy attribute", () => {
         it(`Observe one attribute, and check result change.`, () => {
             const proxy = new A();
             proxy.set({count: 0});
@@ -171,7 +171,7 @@ describe('Framework.Patterns.Proxy', () => {
               Assert.equal(proxy.count, 0);
         });
     });
-    describe('Remove observe', () => {
+    describe("Remove observe", () => {
         it(`Remove one by one.`, () => {
             // initial
             const proxy = new A();

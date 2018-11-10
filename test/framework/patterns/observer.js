@@ -6,13 +6,13 @@ import {assertClass} from "utils/assert";
 import Observer from "framework/patterns/observer"
 
 // Test case
-describe('Framework.Patterns.Observer', () => {
-    it('Class method & Interface', () => {
+describe("Framework.Patterns.Observer", () => {
+    it("Class method & Interface", () => {
         assertClass(Observer);
         assertClass(Observer.Subject);
         assertClass(Observer.Notification);
     });
-    it('Inherent & Constructor.', () => {
+    it("Inherent & Constructor.", () => {
         const observer = new Observer();
         Assert.ok(Object.getOwnPropertyNames(observer).length === 0, "Observer is a package for module.");
         const subject = new Observer.Subject();
