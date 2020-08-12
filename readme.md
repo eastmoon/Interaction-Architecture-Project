@@ -45,7 +45,7 @@ yarn test
 
 | 參數名稱 | 參數值 (預設) | 說明 |
 | :-: | :-: | :-- |
-| ```--type``` | folder_name (demo) | 執行該類別下的測試項目 |
+| ```--project``` | folder_name (demo) | 執行該類別下的測試項目 |
 | ```--pattern``` | folder_name / file_name | 執行該類別下特定檔案路徑 (folder name) 內的測試項目或特定檔案 (file name) 內的測試項目 |
 
 測試模式會執行對應類別下的所有測試項目。
@@ -57,7 +57,7 @@ yarn start
 
 | 參數名稱 | 參數值 (預設) | 說明 |
 | :-: | :-: | :-- |
-| ```--type``` | folder_name (demo) | 執行該類別下的測試項目 |
+| ```--project``` | folder_name (demo) | 執行該類別下的測試項目 |
 | ```--pattern``` | folder_name / file_name | 檔案選擇預設鎖定於特定檔案路徑 (folder name) 或檔案 (file name) 名稱的測試項目 |
 
 開發模式會先選擇單一項目，並監視該類別檔案夾，一旦有更動，重新測試此項目。
