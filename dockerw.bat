@@ -132,15 +132,15 @@ goto end
 
     echo ^> Upgrade library
     docker run -ti --rm^
-        -v %cd%\node\ebook:/repo/^
+        -v %cd%\node\:/repo/^
         -v %cd%\cache\:/repo/node_modules/^
         interaction-architecture:%PROJECT_NAME% bash -l -c "yarn install"
 
     echo ^> Startup docker container instance
     docker run -ti --rm^
-        -v %cd%\node\ebook:/repo/^
+        -v %cd%\node\:/repo/^
         -v %cd%\cache\:/repo/node_modules/^
-        resume-ebook:%PROJECT_NAME% bash
+        interaction-architecture:%PROJECT_NAME% bash
     goto end
 )
 
