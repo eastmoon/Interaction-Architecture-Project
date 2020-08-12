@@ -1,15 +1,7 @@
-# project configurations
-report/
-errorShots/
-
 # third-party library
-node_modules/
+cache/
 
 # install library lock file
-yarn.lock
-yarn-error.log
-package-lock.json
-npm-debug.*
 
 # User-specific configurations
 .idea/
