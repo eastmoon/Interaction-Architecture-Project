@@ -7,13 +7,13 @@ import Mocha from "mocha";
 import MochaConf from "./mocha.conf";
 // Mocha-multi options
 const reporterOptions = {
-    Progress: {
+    progress: {
         stdout: "/tmp/mocha-multi.Progress.out",
         options: {
             verbose: true
         }
     },
-    dot: "-"
+	  dot: ","
 };
 // 編譯模組輸出
 module.exports = (config, pattern) => {
