@@ -13,7 +13,7 @@ const reporterOptions = {
             verbose: true
         }
     },
-	  dot: ","
+	  dot: "-"
 };
 // 編譯模組輸出
 module.exports = (config, pattern) => {
