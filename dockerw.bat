@@ -113,15 +113,15 @@ goto end
     echo      --help, -h        Show more information with CLI.
     echo.
     echo Command:
-    echo      start             Run development environment with docker container.
+    echo      run               Run development environment with docker container.
     echo.
     echo Run 'cli [COMMAND] --help' for more information on a command.
     goto end
 )
 
-:: ------------------- Command "start" mathod -------------------
+:: ------------------- Command "run" mathod -------------------
 
-:cli-start (
+:cli-run (
     echo ^> Build docker images
     docker build --rm -t interaction-architecture:%PROJECT_NAME% ./docker
 
@@ -137,21 +137,36 @@ goto end
         interaction-architecture:%PROJECT_NAME% bash -l -c "yarn install"
 
     echo ^> Startup docker container instance
-    docker run -ti --rm^
-        -v %cd%\node\:/repo/^
-        -v %cd%\cache\:/repo/node_modules/^
-        interaction-architecture:%PROJECT_NAME% bash
+    IF defined RUN_COMMAND (
+        docker run -ti --rm^
+            -v %cd%\node\:/repo/^
+            -v %cd%\cache\:/repo/node_modules/^
+            interaction-architecture:%PROJECT_NAME% bash -l -c "yarn %RUN_COMMAND%"
+    ) else (
+        docker run -ti --rm^
+            -v %cd%\node\:/repo/^
+            -v %cd%\cache\:/repo/node_modules/^
+            interaction-architecture:%PROJECT_NAME% bash
+    )
     goto end
 )
 
-:cli-start-args (
+:cli-run-args (
+    for %%p in (%*) do (
+        if "%%p"=="--start" ( set RUN_COMMAND=start )
+        if "%%p"=="--test" ( set RUN_COMMAND=test )
+        if "%%p"=="--eslint" ( set RUN_COMMAND=eslint )
+    )
     goto end
 )
 
-:cli-start-help (
+:cli-run-help (
     echo Run development environment with docker container.
     echo.
     echo Options:
+    echo      --test           Execute node.js test command.
+    echo      --start           Execute node.js start command.
+    echo      --eslint           Execute node.js start command.
     echo.
     goto end
 )
