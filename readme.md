@@ -1,4 +1,6 @@
-# Interaction architect project
+# Interaction architecture project
+
++ [Research interaction architecture document](https://github.com/eastmoon/research-software-theory/blob/master/software-engineering/interaction_architecture.md)
 
 此專案是以樣式設計實踐互動架構概念，其設計主要思想來自於 PureMVC。
 
@@ -11,6 +13,9 @@ In the book "[Pattern-Oriented Software Architecture](https://www.amazon.com/Pat
 而其主要變革，多集中於 View 的概念與細節，然而其改變卻往往依據應用情境而限縮了結構靈活度；因此本專案將針對控制、資料面進行細部規劃。
 
 But, the major change is on "View", and those change also limit the using situation, and the structure flexibility. So, in this project will focus on "Controller", "Model" design detail.
+
+## § Introduction
+
 
 ## § Library
 
