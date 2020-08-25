@@ -1,6 +1,8 @@
 # Interactive architecture project
 
-+ [Research interactive architecture document](https://github.com/eastmoon/research-software-theory/blob/master/software-engineering/interactive_architecture.md)
++ Research document
+  - [Architecture pattern](https://github.com/eastmoon/research-software-theory/blob/master/software-engineering/architecture_pattern.md)
+  - [Interactive architecture](https://github.com/eastmoon/research-software-theory/blob/master/software-engineering/interactive_architecture.md)
 
 此專案是以樣式設計實踐互動架構概念，其設計主要思想來自於 PureMVC。
 
