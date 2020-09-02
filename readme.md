@@ -18,6 +18,25 @@ But, the major change is on "View", and those change also limit the using situat
 
 ## § Introduction
 
+架構是一種概念，對此以 Design Pattern 實踐 MVC 的軟體設計方式，則每個模組針對其功能定位，會需使用不同樣式來設計；但必須注意，實際運用於不同的框架會保留的樣式會有不同，例如 React 具備 View Component 與 Reactive 框架，則無需重複設計相同樣式，而是思考現有框架的樣式完成度並以此來思考其他樣式的開發與補充。
+
++ Model
+    - Proxy Pattern
+    - Adapter Pattern
+        - Service & Callback
++ View
+    - Mediator
+        - View Component
+    - Observer Pattern
+        - Recative Programming
+
++ Controller
+    - Command Pattern
+        - Progress
+
++ Model-View-Controller application
+    - Singleton Pattern
+        - Facade Pattern
 
 ## § Library
 
