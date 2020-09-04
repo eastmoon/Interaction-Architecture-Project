@@ -43,7 +43,7 @@ Application.getInstance().models().retrieve("model-name");
 Proxy model = Application.getInstance().models().retrieve("model-name");
 ```
 
-模組 ( Model ) 主要採用 Proxy 樣式設計，其設計目的是透過代理者操作介面來引含模組內部操作的諸多行為，而在實務運用上可以將 Proxy 分為幾類：
+模組 ( Model ) 主要採用 Proxy 設計樣式，其設計目的是透過代理者操作介面來引含模組內部操作的諸多行為，而在實務運用上可以將 Proxy 分為幾類：
 
 + Data proxy
 資料代理者，是實際儲存、擷取資料的資料物件，對應不同介面應會進行相關的資料處理、格式轉換。
@@ -78,7 +78,7 @@ model.observe("vairable", view.action);
 View view = Application.getInstance().views().retrieve("view-name");
 ```
 
-視圖 ( View ) 主要採用 Mediator 與 Observer 樣式設計，Mediator 用於呈現資料層與互動設定，Observer 用於互動事件偵聽；在諸多新架構或開發工具中，這兩個樣設設計是最常由框架實踐完畢的物件，例如 XNA、React.js 的 View 元件就是將其兩者合併進去的物件；然而，在實務上這兩者並非完全無用，而是視情況必須設計與應用
+視圖 ( View ) 主要採用 Mediator 與 Observer 設計樣式，Mediator 用於呈現資料層與互動設定，Observer 用於互動事件偵聽；在諸多新架構或開發工具中，這兩個樣設設計是最常由框架實踐完畢的物件，例如 XNA、React.js 的 View 元件就是將其兩者合併進去的物件；然而，在實務上這兩者並非完全無用，而是視情況必須設計與應用
 
 ```
 Class ViewA {
@@ -129,3 +129,25 @@ Observer 設計概念的實踐就是典型的事件系統 ( Event System )，無
 
 + Command Pattern
     - Progress Framework
+
+```
+Controller con = Application.getInstance().controllers().retrieve("controller-name");
+```
+
+控制器 ( Controller ) 主要採用 Command 設計樣式，此設計著重在如何將處理流程模組化，以提高再用率與組合性；而其延伸框架則是用於動態建構非同步流程的 Progress，這框架概念源自應用程式轉場時會碰到的諸多狀態改變、動畫呈現，在基於命令模式設計後，並引入 Dataflow 架構為基礎來規劃而成。
+
+若從 MVC 於 Pattern-Oriented Software Architecture 的範例來看 Controller，在看近期 MVC 架構的 Controller，可以發現不論是何種 MVC 架構、延伸架構，對於 Controller 的解釋會因時制宜的改變；演進至反應式程式設計時，甚至會有 Controller 流程固定化或移除的設計，例如 Document-View。
+
+但就個人觀察，Controller 的簡化有兩個成因：
+
++ 網際網路應用程式，使流程處理與資料儲存轉移至伺服器
++ 簡約風格與互動設計優先，使介面單一化且侷限單頁內互動
+
+上述過程是併行發生的事項，在電腦的發展從個人電腦、網際網路、雲端運算逐一崛起後，資料運算、儲存就逐漸從本地電腦轉移到雲端系統上；而電腦雖然逐漸空出運算空間，但介面的複雜性提高也相對用掉空出的空間，不過近年的設計風格與介面也走向簡約風的情況下，實際也降低了在介面端需要複雜控制器的必要。
+
+但是，依據實際產品的必要性，有兩個主要用途仍需要使用複雜的控制器：
+
++ 超過數個頁面或元件、數個資料模組同時階段運作的工作流程
++ 應用程式介面轉場與動畫呈現
+
+相關 Progress 設計原則參考 [Dataflow Architecture](https://github.com/eastmoon/dataflow-architecture) 的設計原則
